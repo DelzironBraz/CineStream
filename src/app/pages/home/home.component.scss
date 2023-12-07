@@ -1,0 +1,40 @@
+.carousel-inner {
+    height: 700px;
+
+    .carousel-item {
+        img {
+            height: 700px;
+            object-fit: cover;
+        }
+    }
+}
+
+.row {
+
+    &-title {
+        color: white;
+    }
+
+    &-poster {
+        display: flex;
+        overflow-y: hidden;
+        overflow-x: scroll;
+
+        &-image {
+            max-height: 300px;
+            object-fit: contain;
+            box-sizing: content-box;
+            transition: transform 450ms;
+            margin-right: 8px;
+
+            &:hover {
+                transform: scale(1.08);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.row-poster::-webkit-scrollbar {
+    display: none;
+}
