@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { WatchlistService } from 'src/app/service/watchlist.service';
 import { Movie } from 'src/interface/movie';
 import { moviesData } from 'src/utils/movie-data';
 
@@ -11,7 +12,10 @@ import { moviesData } from 'src/utils/movie-data';
 export class MovieDetailsComponent implements OnInit {
   movieDetails: Movie | undefined;
 
-  constructor(private router: ActivatedRoute) { }
+  constructor(
+    private router: ActivatedRoute,
+    private watchlistService: WatchlistService
+  ) { }
 
   ngOnInit(): void {
     this.getMovieDetails()
@@ -25,6 +29,25 @@ export class MovieDetailsComponent implements OnInit {
 
       this.movieDetails = moviesData.find((movie) => movie.id === movieId);
       console.info(this.movieDetails)
+    }
+  }
+
+  addToWatchlist(movie: Movie): void {
+    this.watchlistService.addToWatchlist(movie);
+  }
+
+  isMovieInWatchlist(movie: Movie): boolean {
+    const watchlist = this.watchlistService.getWatchlist();
+    return watchlist.some((watchlistMovie) => watchlistMovie.id === movie.id);
+  }
+
+  toggleWatchlist(movie: Movie): void {
+    if (this.isMovieInWatchlist(movie)) {
+      // Se o filme já está na watchlist, remova-o
+      this.watchlistService.removeFromWatchlist(movie);
+    } else {
+      // Se o filme não está na watchlist, adicione-o
+      this.watchlistService.addToWatchlist(movie);
     }
   }
 }
