@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMoviesByGenre();
+    this.sortedMoviesData();
   }
 
   getMoviesByGenre() {
@@ -37,4 +38,15 @@ export class HomeComponent implements OnInit {
   getMoviesForGenre(genre: string): Movie[] {
     return this.moviesByGenre[genre] || [];
   }
+
+  compareByReleaseDate = (a: Movie, b: Movie) => {
+    const dateA = new Date(a.releasedDate);
+    const dateB = new Date(b.releasedDate);
+
+    return dateA.getTime() - dateB.getTime();
+  };
+
+  sortedMoviesData() {
+    return this.movies.sort(this.compareByReleaseDate)
+  };
 }
