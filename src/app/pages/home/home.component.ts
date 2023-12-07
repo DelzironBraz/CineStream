@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WatchlistService } from 'src/app/service/watchlist.service';
 import { Banner } from 'src/interface/banner';
 import { Movie } from 'src/interface/movie';
 import { BannerData } from 'src/utils/banner-data';
@@ -13,12 +14,14 @@ export class HomeComponent implements OnInit {
   banners: Banner[] = BannerData;
   movies: Movie[] = moviesData;
   moviesByGenre: { [genre: string]: Movie[] } = {};
+  watchlist: Movie[] | undefined;
 
-  constructor() { }
+  constructor(private watchlistService: WatchlistService) { }
 
   ngOnInit(): void {
     this.getMoviesByGenre();
     this.sortedMoviesData();
+    this.watchlist = this.watchlistService.getWatchlist();
   }
 
   getMoviesByGenre() {
@@ -49,4 +52,8 @@ export class HomeComponent implements OnInit {
   sortedMoviesData() {
     return this.movies.sort(this.compareByReleaseDate)
   };
+
+  isWatchlistEmpty(): boolean {
+    return this.watchlistService.isWatchlistEmpty();
+  }
 }

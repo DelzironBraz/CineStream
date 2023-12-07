@@ -24,6 +24,19 @@
 </div>
 
 <div class="container-fluid mt-3 p-4">
+    <ng-container *ngIf="!isWatchlistEmpty()">
+        <div class="row p-4">
+            <h5 class="row-title">Watchlist</h5>
+            <div class="row-poster">
+                <ng-container *ngFor="let movie of watchlist">
+                    <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image"
+                        [routerLink]="['/movie', movie.id]">
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+
+
     <div class="row p-4">
         <h5 class="row-title">Threading</h5>
         <div class="row-poster">
