@@ -1,0 +1,24 @@
+<div class="container-fluid mt-5 search">
+    <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+        <div class="row w-100">
+            <div class="mb-3 col-lg-10">
+                <input type="text" class="form-control" id="search" formControlName="title"
+                    placeholder="Search Movie Here...">
+            </div>
+
+            <div class="col-lg-2">
+                <button class="btn btn-outline-danger">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row p-4">
+    <h5 class="row-title">Suggestions</h5>
+    <div class="row-poster">
+        <ng-container *ngFor="let movie of movies">
+            <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image"
+                [routerLink]="['/movie', movie.id]">
+        </ng-container>
+    </div>
+</div>

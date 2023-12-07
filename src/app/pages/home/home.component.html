@@ -22,12 +22,24 @@
         </button>
     </div>
 </div>
+
 <div class="container-fluid mt-3 p-4">
     <div class="row p-4">
         <h5 class="row-title">Threading</h5>
         <div class="row-poster">
             <ng-container *ngFor="let movie of movies">
-                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image">
+                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image"
+                    [routerLink]="['/movie', movie.id]">
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="row p-4">
+        <h5 class="row-title">Last Release</h5>
+        <div class="row-poster">
+            <ng-container *ngFor="let movie of sortedMoviesData()">
+                <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image"
+                    [routerLink]="['/movie', movie.id]">
             </ng-container>
         </div>
     </div>
@@ -37,7 +49,8 @@
             <h5 class="row-title">{{ genre }}</h5>
             <div class="row-poster">
                 <ng-container *ngFor="let movie of getMoviesForGenre(genre)">
-                    <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image">
+                    <img src="{{ movie.image }}" alt="{{ movie.title }}" class="row-poster-image"
+                        [routerLink]="['/movie', movie.id]">
                 </ng-container>
             </div>
         </div>
